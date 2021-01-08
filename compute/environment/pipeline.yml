@@ -1,0 +1,33 @@
+#-------------------------------------------------------------------------
+# Terraform Build Yaml Pipeline
+#-------------------------------------------------------------------------
+
+stages:
+- template: ../../../pipelines/main.yml
+  parameters:
+    environment_name: hub_mgmt_wella
+    root_directory: "/infra/hub_mgmt/compute"
+    module_directory: "/infra/modules"
+    tfvarFile: "/infra/hub_mgmt/compute/environment/parameters.tfvars.json"
+    backend_resource_group: "rg-wl-prod-sharedinfra"
+    backend_storage_accountname: "wlprodeusdevopsstorage01"
+    container_name : "tf-state-files"
+    container_key: "hub_mgmt/compute.tfstate"                   # Tf State file location in Azure STorage
+    plan_container_name: "tf-state-files"
+    planoutfile: "hub_mgmt/compute.json"                     #  Plan File Location in Azure Storage
+    service_connection_name: "wella-devops-sp"
+    deployment_name: "compute"
+
+# - template: deployment.yml
+#   parameters:
+#     environmentname: hub_mgmt_wella
+#     rootDirectory: "/infra/hub_mgmt"
+#     moduleDirectory: "/infra/modules"
+#     tfvarFile: "/infra/hub_mgmt/tst/main.tfvars.json"
+#     backendResourceGroup: "rg-wl-prod-sharedinfra"
+#     backendStorageAccountName: "wlprodeusdevopsstorage01"
+#     backendStorageAccountContainer : "tf-state-files"
+#     backendKey: "hub_mgmt/wella.tfstate"                  # Tf State file location in Azure STorage
+#     planContainerName: "tf-state-files"
+#     planOutfile: "hub_mgmt/wella.json"                    #  Plan File Location in Azure Storage
+#     serviceConnectionName: "wella-devops-sp"
